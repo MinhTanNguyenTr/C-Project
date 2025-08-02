@@ -6,8 +6,7 @@
 enum class CategoryType : int
 {
     INCOME =0,
-    EXPENSE,
-    TRANSFER
+    EXPENSE
 };
 
 class category
