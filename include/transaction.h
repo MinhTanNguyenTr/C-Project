@@ -6,8 +6,7 @@
 enum class TransactionType : int 
 {
     INCOME =0,
-    EXPENSE,
-    TRANSFER
+    EXPENSE
 };
 
 class transaction
