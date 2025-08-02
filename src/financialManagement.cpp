@@ -5,7 +5,9 @@
 #include <iomanip>
 #include <transaction.h>
 #include <memory>
+#include <sstream>
 #include <iostream>
+#include <string>
 #include <iomanip>
 using namespace Utils;
 
@@ -92,40 +94,36 @@ void financialManagement::savetoFile(const std::string& filename) const
 
 }
 
-void financialManagement::loadFromFile(const std::string& filename)
-{
+void financialManagement::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
-    if(! file.is_open())
-    {
+    if (!file.is_open()) {
+        std::cerr << "Could not open file.\n";
         return;
     }
 
-    transactions.clear();
-    nextId = 1;
-
     std::string line;
-    while (std::getline(file, line)) 
-    {
+    while (std::getline(file, line)) {
         std::stringstream ss(line);
-        std::string idStr, amountStr, date, category, typeStr, note;
+        std::string idStr, amountStr, date, category, typeStr, node;
 
         std::getline(ss, idStr, ',');
         std::getline(ss, amountStr, ',');
         std::getline(ss, date, ',');
         std::getline(ss, category, ',');
         std::getline(ss, typeStr, ',');
-        std::getline(ss, note); 
+        std::getline(ss, node);  
+
+        if (idStr.empty() || amountStr.empty() || typeStr.empty())
+            continue;
 
         int id = std::stoi(idStr);
         double amount = std::stod(amountStr);
         TransactionType type = static_cast<TransactionType>(std::stoi(typeStr));
 
-        auto t = std::make_shared<transaction>(id, amount, date, category, type, note);
+        auto t = std::make_shared<transaction>(id, amount, date, category, type, node);
         transactions.push_back(t);
         nextId = std::max(nextId, id + 1);
     }
 
     file.close();
-
-
 }

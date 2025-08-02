@@ -1,3 +1,5 @@
+#ifndef FINANCIALMANAGEMENT_H
+#define FINANCIALMANAGEMENT_H
 #include "transaction.h"
 #include <iostream>
 #include "category.h"
@@ -16,3 +18,5 @@ class financialManagement
     std::vector< std::shared_ptr<transaction>> transactions;
     int nextId;
 };
+
+#endif
