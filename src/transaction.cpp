@@ -62,3 +62,10 @@ TransactionType transaction::getType() const
 {
     return type;
 }
+
+void transaction::print() const
+{
+        std::cout << "[" << (type == TransactionType::INCOME ? "Income" : "Expense") << "] "
+              << date << " | " << category << " | $" << amount
+              << " | " << node << " (ID: " << id << ")\n";
+}
